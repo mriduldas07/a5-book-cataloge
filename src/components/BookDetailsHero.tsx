@@ -1,19 +1,26 @@
-export default function BookDetailsHero() {
+import { IBooks } from "../types/globalType";
+
+interface IProps {
+  book: IBooks;
+}
+
+export default function BookDetailsHero({ book }: IProps) {
+  const { img, title, author, genre, publicationDate } = book || {};
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
-        <img
-          src="/images/stock/photo-1635805737707-575885ab0820.jpg"
-          className="max-w-sm rounded-lg shadow-2xl"
-        />
-        <div>
-          <h1 className="text-5xl font-bold">Box Office News!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
+        <div className="w-[20rem]">
+          <img src={img} className="min-w-full rounded-lg shadow-2xl" />
+        </div>
+        <div className="flex flex-col gap-3 ms-10">
+          <h1 className="text-5xl font-bold">{title}</h1>
+          <h6 className="text-xl font-bold">Author: {author}</h6>
+          <h6 className="text-xl font-bold">Genre: {genre}</h6>
+          <h6 className="text-xl font-bold">
+            Publication Date: {publicationDate}
+          </h6>
+          <p>lllllllllllllllllllll</p>
+          <button className="btn btn-primary my-6">Add to cart</button>
         </div>
       </div>
     </div>

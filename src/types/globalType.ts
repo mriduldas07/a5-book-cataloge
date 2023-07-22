@@ -7,8 +7,5 @@ export interface IBooks {
   publicationDate: string;
   title: string;
   createdAt: string;
+  quantity?: number;
 }
-
-export type IBook = {
-  book: IBooks;
-};

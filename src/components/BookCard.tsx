@@ -1,4 +1,7 @@
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { addToCart } from "../redux/features/cart/cartSlice";
+import { useAppDispatch } from "../redux/hooks";
 import { IBooks } from "../types/globalType";
 
 interface IPros {
@@ -6,7 +9,12 @@ interface IPros {
 }
 
 export default function BookCard({ book }: IPros) {
+  const dispatch = useAppDispatch();
   const { title, author, genre, img, publicationDate, _id } = book || {};
+
+  const handleAddToCart = (book: IBooks) => {
+    dispatch(addToCart(book));
+  };
   return (
     <div className="card w-[20rem] bg-base-100 shadow-xl">
       <Link to={`/book-details/${_id}`}>
@@ -20,10 +28,15 @@ export default function BookCard({ book }: IPros) {
         <span>Genre: {genre}</span>
         <span>Publication Date: {publicationDate}</span>
         <div className="flex justify-center items-center gap-5">
-          <button className="bg-emerald-700 text-white py-1.5 px-5 rounded-sm">
+          <button
+            className="bg-emerald-700 text-white py-1.5 px-5 rounded-sm"
+            onClick={() => handleAddToCart(book)}
+          >
             Add to cart
           </button>
-          <p>wishlist</p>
+          <p className="cursor-pointer">
+            <MdOutlineFavoriteBorder size={30} />
+          </p>
         </div>
       </div>
     </div>

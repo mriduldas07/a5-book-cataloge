@@ -1,7 +1,11 @@
-import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { addToCart } from "../redux/features/cart/cartSlice";
-import { useAppDispatch } from "../redux/hooks";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../redux/features/wishList/wishListSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { IBooks } from "../types/globalType";
 
 interface IPros {
@@ -9,12 +13,22 @@ interface IPros {
 }
 
 export default function BookCard({ book }: IPros) {
+  const { books } = useAppSelector((state) => state.wishlist);
   const dispatch = useAppDispatch();
   const { title, author, genre, img, publicationDate, _id } = book || {};
 
   const handleAddToCart = (book: IBooks) => {
     dispatch(addToCart(book));
   };
+  const handleWishlist = () => {
+    dispatch(addToWishlist(book));
+  };
+
+  const handleWishlistRemove = () => {
+    dispatch(removeFromWishlist(book));
+  };
+
+  const matchWishlist = books.find((book) => book._id === _id);
   return (
     <div className="card w-[20rem] bg-base-100 shadow-xl">
       <Link to={`/book-details/${_id}`}>
@@ -34,8 +48,15 @@ export default function BookCard({ book }: IPros) {
           >
             Add to cart
           </button>
-          <p className="cursor-pointer">
-            <MdOutlineFavoriteBorder size={30} />
+          <p
+            className="cursor-pointer"
+            onClick={matchWishlist ? handleWishlistRemove : handleWishlist}
+          >
+            {matchWishlist ? (
+              <MdFavorite size={30} />
+            ) : (
+              <MdOutlineFavoriteBorder size={30} />
+            )}
           </p>
         </div>
       </div>

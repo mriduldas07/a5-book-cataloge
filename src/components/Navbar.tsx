@@ -1,12 +1,25 @@
+import { signOut } from "firebase/auth";
+import { BsCardChecklist } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
+import { auth } from "../lib/firebase";
+import { setUser } from "../redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 export default function Navbar() {
+  const { user } = useAppSelector((state) => state.user);
   const { books } = useAppSelector((state) => state.cart);
+  const { books: wishList } = useAppSelector((state) => state.wishlist);
+  const dispatch = useAppDispatch();
   let cartQuantity = 0;
   for (let i = 0; i < books.length; i++) {
     cartQuantity += books[i].quantity!;
   }
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      dispatch(setUser(null));
+    });
+  };
   return (
     <div className="navbar bg-emerald-700">
       <div className="flex-1">
@@ -15,20 +28,48 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex lg:justify-center lg:items-center">
-        <ul className="menu menu-horizontal px-1">
-          <Link to={`/`}>
-            <li className="text-white pr-2 text-[16px]">Login</li>
-          </Link>
-          <Link to={`/`}>
-            <li className="text-white text-[16px]">Sign up</li>
-          </Link>
-        </ul>
+        {!user.email ? (
+          <ul className="menu menu-horizontal px-1">
+            <Link to={`/login`}>
+              <li className="text-white pr-2 text-[16px]">Login</li>
+            </Link>
+            <Link to={`/signup`}>
+              <li className="text-white text-[16px]">Sign up</li>
+            </Link>
+          </ul>
+        ) : (
+          <ul>
+            <li
+              className="text-white text-[16px] cursor-pointer"
+              onClick={handleLogout}
+            >
+              Logout
+            </li>
+          </ul>
+        )}
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
+            <Link to={`/wishlist`}>
+              <div className="indicator text-white">
+                <BsCardChecklist size={21} />
+                <span className="badge badge-sm indicator-item">
+                  {wishList.length}
+                </span>
+              </div>
+            </Link>
+          </label>
+          <div
+            tabIndex={0}
+            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+          ></div>
+        </div>
+
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle">
             <Link to={`/cart`}>
-              <div className="indicator">
+              <div className="indicator text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -53,30 +94,6 @@ export default function Navbar() {
             tabIndex={0}
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           ></div>
-        </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

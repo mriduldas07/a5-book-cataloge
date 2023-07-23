@@ -14,7 +14,7 @@ export default function Home() {
     content = <Loading />;
   }
 
-  if (!isLoading && booksData.length > 0) {
+  if (!isLoading && booksData?.length > 0) {
     content = booksData?.map((book: IBooks) => (
       <BookCard key={book._id} book={book} />
     ));

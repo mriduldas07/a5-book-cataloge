@@ -39,7 +39,10 @@ export default function AddReviews({ id }: IProps) {
             rows={2}
           ></textarea>
           {isLoading && <Loading />}
-          <button className="btn bg-emerald-700 text-white" type="submit">
+          <button
+            className="px-4 py-1.5 rounded-md bg-emerald-700 text-white"
+            type="submit"
+          >
             Send
           </button>
         </div>

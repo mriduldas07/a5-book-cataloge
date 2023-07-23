@@ -4,6 +4,8 @@ import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
 import { api } from "./api/apiSlice";
 import cartReducer from "./features/cart/cartSlice";
+import userReducer from "./features/user/userSlice";
+import wishListReducer from "./features/wishList/wishListSlice";
 
 const persistConfig = {
   key: "root",
@@ -12,6 +14,8 @@ const persistConfig = {
 
 const reducers = combineReducers({
   cart: cartReducer,
+  user: userReducer,
+  wishlist: wishListReducer,
   [api.reducerPath]: api.reducer,
 });
 

@@ -8,4 +8,6 @@ export interface IBooks {
   title: string;
   createdAt: string;
   quantity?: number;
+  readingStatus?: boolean;
+  readingComplete?: boolean;
 }

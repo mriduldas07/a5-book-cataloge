@@ -38,9 +38,23 @@ const wishlistSlice = createSlice({
         existingBook!.readingStatus = false;
       }
     },
+    changeFinishedStatus: (state, action: PayloadAction<IBooks>) => {
+      const existingBook = state.books.find(
+        (b) => b._id === action.payload._id
+      );
+      if (existingBook && existingBook.readingComplete === false) {
+        existingBook.readingComplete = true;
+      } else {
+        existingBook!.readingComplete = false;
+      }
+    },
   },
 });
 
 export default wishlistSlice.reducer;
-export const { addToWishlist, removeFromWishlist, changeBookStatus } =
-  wishlistSlice.actions;
+export const {
+  addToWishlist,
+  removeFromWishlist,
+  changeBookStatus,
+  changeFinishedStatus,
+} = wishlistSlice.actions;

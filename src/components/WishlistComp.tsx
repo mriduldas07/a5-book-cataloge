@@ -1,6 +1,7 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import {
   changeBookStatus,
+  changeFinishedStatus,
   removeFromWishlist,
 } from "../redux/features/wishList/wishListSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -28,37 +29,42 @@ export default function WishlistComp({ book }: IProps) {
           <p>Genre: {genre}</p>
           <div className="flex items-center gap-1.5">
             <p className="font-semibold">Reading status: </p>
-            <label className="swap">
-              <input type="checkbox" />
-              {matchedBook?.readingStatus && (
-                <div
-                  className="swap-on bg-green-200 px-2 py-1 rounded-2xl text-center"
-                  onClick={() => dispatch(changeBookStatus(book))}
-                >
-                  Reading
-                </div>
-              )}
-              {!matchedBook?.readingStatus && (
-                <div
-                  className="swap-off bg-red-200 px-2 py-1 rounded-2xl"
-                  onClick={() => dispatch(changeBookStatus(book))}
-                >
-                  Read soon
-                </div>
-              )}
-            </label>
+
+            {matchedBook?.readingStatus && (
+              <div
+                className="bg-green-200 px-2 py-1 rounded-2xl text-center cursor-pointer"
+                onClick={() => dispatch(changeBookStatus(book))}
+              >
+                Reading
+              </div>
+            )}
+            {!matchedBook?.readingStatus && (
+              <div
+                className="bg-red-200 px-2 py-1 rounded-2xl cursor-pointer"
+                onClick={() => dispatch(changeBookStatus(book))}
+              >
+                Read soon
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-1.5 mt-2">
             <p className="font-semibold">Mark as finished: </p>
-            <label className="swap">
-              <input type="checkbox" />
-              <div className="swap-on bg-green-200 px-2 py-1 rounded-2xl text-center">
+            {matchedBook?.readingComplete && (
+              <div
+                className="bg-green-200 px-2 py-1 rounded-2xl text-center cursor-pointer"
+                onClick={() => dispatch(changeFinishedStatus(book))}
+              >
                 Finished
               </div>
-              <div className="swap-off bg-red-200 px-2 py-1 rounded-2xl">
+            )}
+            {!matchedBook?.readingComplete && (
+              <div
+                className="bg-red-200 px-2 py-1 rounded-2xl cursor-pointer"
+                onClick={() => dispatch(changeFinishedStatus(book))}
+              >
                 Not finished
               </div>
-            </label>
+            )}
           </div>
         </div>
 

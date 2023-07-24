@@ -28,8 +28,19 @@ const wishlistSlice = createSlice({
     removeFromWishlist: (state, action: PayloadAction<IBooks>) => {
       state.books = state.books.filter((p) => p._id !== action.payload._id);
     },
+    changeBookStatus: (state, action: PayloadAction<IBooks>) => {
+      const existingBook = state.books.find(
+        (b) => b._id === action.payload._id
+      );
+      if (existingBook && existingBook.readingStatus === false) {
+        existingBook.readingStatus = true;
+      } else {
+        existingBook!.readingStatus = false;
+      }
+    },
   },
 });
 
 export default wishlistSlice.reducer;
-export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { addToWishlist, removeFromWishlist, changeBookStatus } =
+  wishlistSlice.actions;

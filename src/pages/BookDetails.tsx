@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Key } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AddReviews from "../components/AddReviews";
 import BookDetailsHero from "../components/BookDetailsHero";
 import BookReviews from "../components/BookReviews";
@@ -10,9 +10,11 @@ import {
   useGetCommentQuery,
   useGetSingleBookQuery,
 } from "../redux/features/books/booksApi";
+import { useAppSelector } from "../redux/hooks";
 import { IBooks } from "../types/globalType";
 
 export default function BookDetails() {
+  const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
   const { data, isLoading } = useGetSingleBookQuery(id);
   const { data: comments } = useGetCommentQuery(id, {
@@ -21,6 +23,8 @@ export default function BookDetails() {
 
   const bookData: IBooks = data?.data;
   const commentsData = comments?.data?.comments;
+
+  const { pathname } = useLocation();
 
   let content;
   if (isLoading) {
@@ -31,7 +35,20 @@ export default function BookDetails() {
       <>
         <BookDetailsHero book={bookData} />
         <div className="divider"></div>
-        <AddReviews id={bookData._id} />
+        {!user.email ? (
+          <p className="text-center text-orange-700 font-bold text-xl">
+            Review this book?{" "}
+            <Link
+              to={`/login`}
+              className="underline"
+              state={{ path: pathname }}
+            >
+              Please login
+            </Link>
+          </p>
+        ) : (
+          <AddReviews id={bookData._id} />
+        )}
         {commentsData?.map((comment: string, i: Key | null | undefined) => (
           <BookReviews key={i} comment={comment} />
         ))}

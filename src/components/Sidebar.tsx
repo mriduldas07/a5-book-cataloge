@@ -18,7 +18,8 @@ export default function Sidebar() {
   const publicationYearArr: string[] = [];
 
   booksData.map((b: IBooks) => {
-    genreArr.push(b.genre);
+    const upperCase = b.genre.charAt(0).toUpperCase() + b.genre.slice(1);
+    genreArr.push(upperCase);
   });
 
   booksData.map((b: IBooks) => {

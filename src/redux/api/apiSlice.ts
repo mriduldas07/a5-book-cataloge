@@ -5,6 +5,6 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://book-catelog-server-yvg6.vercel.app/api/v1",
   }),
-  tagTypes: ["comments"],
+  tagTypes: ["comments", "addBook"],
   endpoints: () => ({}),
 });

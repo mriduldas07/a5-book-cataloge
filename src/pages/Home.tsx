@@ -7,7 +7,9 @@ import { useGetBooksQuery } from "../redux/features/books/booksApi";
 import { IBooks } from "../types/globalType";
 
 export default function Home() {
-  const { data, isLoading } = useGetBooksQuery(undefined);
+  const { data, isLoading } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const booksData: IBooks[] = data?.data;
   let content;
   if (isLoading) {

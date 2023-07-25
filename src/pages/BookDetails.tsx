@@ -16,7 +16,9 @@ import { IBooks } from "../types/globalType";
 export default function BookDetails() {
   const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleBookQuery(id);
+  const { data, isLoading } = useGetSingleBookQuery(id, {
+    refetchOnMountOrArgChange: true,
+  });
   const { data: comments } = useGetCommentQuery(id, {
     pollingInterval: 3000,
   });

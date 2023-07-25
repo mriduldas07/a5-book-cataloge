@@ -13,7 +13,7 @@ interface IProps {
 
 export default function CartComp({ book }: IProps) {
   const dispatch = useAppDispatch();
-  const { img, title, author, genre, quantity, publicationDate } = book || {};
+  const { img, title, author, genre, quantity } = book || {};
 
   return (
     <div className="hero max-h-[400px] w-full bg-base-200 border m-3 rounded-lg">

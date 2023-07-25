@@ -3,6 +3,7 @@ import { persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
 import { api } from "./api/apiSlice";
+import bookReducer from "./features/books/bookSlice";
 import cartReducer from "./features/cart/cartSlice";
 import userReducer from "./features/user/userSlice";
 import wishListReducer from "./features/wishList/wishListSlice";
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   cart: cartReducer,
   user: userReducer,
   wishlist: wishListReducer,
+  book: bookReducer,
   [api.reducerPath]: api.reducer,
 });
 

@@ -38,7 +38,10 @@ export default function Navbar() {
             </Link>
           </ul>
         ) : (
-          <ul>
+          <ul className="flex gap-3">
+            <li className="text-white text-[16px] cursor-pointer">
+              <Link to={`/add-book`}>Add book</Link>
+            </li>
             <li
               className="text-white text-[16px] cursor-pointer"
               onClick={handleLogout}

@@ -22,10 +22,15 @@ export default function Sidebar() {
     genreArr.push(upperCase);
   });
 
+  const genSet = new Set(genreArr);
+  const genreArray = [...genSet];
+
   booksData?.map((b: IBooks) => {
     const arr = b.publicationDate.split(" ");
     publicationYearArr.push(arr[arr.length - 1]);
   });
+  const yearSet = new Set(publicationYearArr);
+  const yearArr = [...yearSet];
 
   useEffect(() => {
     dispatch(filterByGenre(genre));
@@ -47,7 +52,7 @@ export default function Sidebar() {
           onChange={(e) => setGenre(e.target.value)}
         >
           <option value="">Choose one</option>
-          {genreArr.map((g, i) => (
+          {genreArray.map((g, i) => (
             <option value={g} key={i}>
               {g}
             </option>
@@ -66,7 +71,7 @@ export default function Sidebar() {
           onChange={(e) => setYear(e.target.value)}
         >
           <option value="">Choose one</option>
-          {publicationYearArr.map((y, i) => (
+          {yearArr.map((y, i) => (
             <option value={y} key={i}>
               {y}
             </option>

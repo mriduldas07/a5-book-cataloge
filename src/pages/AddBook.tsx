@@ -51,7 +51,6 @@ export default function AddNews() {
     setTitle("");
     setGenre("");
     setAuthor("");
-    navigate("/");
     dispatch(cancelEditing());
   };
 

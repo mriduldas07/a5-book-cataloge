@@ -8,8 +8,8 @@ import { useAppDispatch } from "../redux/hooks";
 import { IBooks } from "../types/globalType";
 
 export default function Sidebar() {
-  const { data } = useGetBooksQuery(undefined);
   const dispatch = useAppDispatch();
+  const { data } = useGetBooksQuery(undefined);
   // local state
   const [genre, setGenre] = useState<string>("");
   const [year, setYear] = useState<string>("");
@@ -17,12 +17,12 @@ export default function Sidebar() {
   const genreArr: string[] = [];
   const publicationYearArr: string[] = [];
 
-  booksData.map((b: IBooks) => {
+  booksData?.map((b: IBooks) => {
     const upperCase = b.genre.charAt(0).toUpperCase() + b.genre.slice(1);
     genreArr.push(upperCase);
   });
 
-  booksData.map((b: IBooks) => {
+  booksData?.map((b: IBooks) => {
     const arr = b.publicationDate.split(" ");
     publicationYearArr.push(arr[arr.length - 1]);
   });

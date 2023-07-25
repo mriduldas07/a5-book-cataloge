@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { api } from "./api/apiSlice";
 import bookReducer from "./features/books/bookSlice";
 import cartReducer from "./features/cart/cartSlice";
+import filterReducer from "./features/filter/filterSlice";
 import userReducer from "./features/user/userSlice";
 import wishListReducer from "./features/wishList/wishListSlice";
 
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   user: userReducer,
   wishlist: wishListReducer,
   book: bookReducer,
+  filter: filterReducer,
   [api.reducerPath]: api.reducer,
 });
 

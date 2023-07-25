@@ -30,7 +30,7 @@ export default function BookCard({ book }: IPros) {
 
   const matchWishlist = books.find((book) => book._id === _id);
   return (
-    <div className="card w-[20rem] bg-base-100 shadow-xl">
+    <div className="card w-[18rem] bg-base-100 shadow-xl">
       <Link to={`/book-details/${_id}`}>
         <figure className="px-10 pt-10 max-h-[293px]">
           <img src={img} alt="Shoes" className="rounded-xl" />

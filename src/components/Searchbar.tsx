@@ -7,7 +7,7 @@ export default function Searchbar() {
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    dispatch(fiterBySearch(search));
+    dispatch(fiterBySearch(search.toLowerCase()));
   }, [dispatch, search]);
   return (
     <div>
